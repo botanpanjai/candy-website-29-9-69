@@ -314,15 +314,15 @@ p {
 }
 
 .profile-dev-yandev {
-    background-image: url("https://media.discordapp.net/attachments/1551834868416253993/1552734645513097236/868f6804eb1391e83a15066d46608ace.jpg?ex=6ab6b053&is=6ab55ed3&hm=19ae6387f79ed8ddbcb4663b0d89c38e2f165c1404e1471e32bd87df03716502&=&format=webp");
+    background-image: url("./pictures/yandev-img.webp");
 }
 
 .profile-dev-ami {
-    background-image: url("https://cdn.discordapp.com/attachments/1455167939404894352/1552751343976980581/a2171ac2dc486e2172c3ef0468d1183b.webp?ex=6ab6bfe1&is=6ab56e61&hm=9dfa89090c55bf99ff353e79dc1f6808670424f4156124c1cbedd3acfeca20ab");
+    background-image: url("./pictures/ami_img.webp");
 }
 
 .profile-dev-shiba {
-    background-image: url("https://cdn.discordapp.com/attachments/1455167939404894352/1552746728501805089/3b6210e26956e8ecf4f6ec5299d82752.webp?ex=6ab6bb94&is=6ab56a14&hm=239f7300b452076bb240426dcd3c57431c0c834e2f4cb2e0ea838637e5c9a1d4");
+    background-image: url("./pictures/shiba_img.webp");
 }
 
 .text-name {
