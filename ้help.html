@@ -1,0 +1,625 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candy Bot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<style>
+.help-main {
+    width: min(1000px, 90%);
+    margin: 70px auto 80px;
+}
+
+.help-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.help-header h1 {
+    font-size: 38px;
+    font-weight: 600;
+    color: var(--pink-dark);
+    text-shadow: 0 5px 20px rgba(255, 40, 166, 0.2);
+}
+
+.help-header p {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 16px;
+}
+
+.help-category {
+    margin-top: 30px;
+}
+
+.help-category h2 {
+    margin-bottom: 14px;
+    padding-left: 5px;
+    color: #87506f;
+    font-size: 21px;
+    font-weight: 500;
+}
+
+.help-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.help-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    min-height: 82px;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: var(--text);
+    background: var(--card-color);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.help-item:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow:
+        0 18px 45px rgba(255, 72, 178, 0.22),
+        0 5px 20px rgba(155, 92, 255, 0.08);
+}
+
+.help-icon {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    font-size: 22px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 89, 189, 0.16),
+            rgba(155, 92, 255, 0.12)
+        );
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow:
+        0 7px 20px rgba(255, 72, 178, 0.12);
+}
+
+.help-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.help-content h3 {
+    color: #6f3e5d;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.help-content p {
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 400;
+    text-shadow: none;
+}
+
+.arrow {
+    flex-shrink: 0;
+    color: #bd7ca2;
+    font-size: 28px;
+    font-weight: 300;
+    transition:
+        transform 0.25s ease,
+        color 0.25s ease;
+}
+
+.help-item:hover .arrow {
+    color: var(--pink);
+    transform: translateX(5px);
+}
+
+.help-detail {
+    display: none;
+    width: min(850px, 90%);
+    margin: 40px auto 80px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.68);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+    animation: helpShow 0.3s ease;
+}
+
+.help-detail.active {
+    display: block;
+}
+
+@keyframes helpShow {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.help-detail h1 {
+    color: var(--pink-dark);
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.help-detail h2 {
+    margin-top: 30px;
+    margin-bottom: 8px;
+    color: #87506f;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.help-detail p {
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.help-detail ol,
+.help-detail ul {
+    margin-top: 8px;
+    padding-left: 25px;
+    color: var(--muted);
+    line-height: 2;
+}
+
+.help-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 25px;
+    padding: 9px 15px;
+    color: #a65c84;
+    text-decoration: none;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.help-back:hover {
+    color: var(--pink-dark);
+    background: rgba(255, 255, 255, 0.85);
+    transform: translateX(-3px);
+}
+
+.help-warning,
+.help-info,
+.help-success {
+    margin-top: 20px;
+    padding: 15px 18px;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.help-warning {
+    background: rgba(255, 190, 100, 0.12);
+    border: 1px solid rgba(255, 190, 100, 0.25);
+    color: #9a6b3a;
+}
+
+.help-info {
+    background: rgba(155, 92, 255, 0.08);
+    border: 1px solid rgba(155, 92, 255, 0.18);
+    color: #76549d;
+}
+
+.help-success {
+    background: rgba(73, 217, 135, 0.10);
+    border: 1px solid rgba(73, 217, 135, 0.20);
+    color: #43845e;
+}
+
+.help-code {
+    display: block;
+    margin-top: 12px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    background: rgba(30, 20, 30, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    color: #75435f;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+@media (max-width: 700px) {
+    .help-main {
+        width: 92%;
+        margin: 45px auto 60px;
+    }
+
+    .help-header h1 {
+        font-size: 30px;
+    }
+
+    .help-header p {
+        font-size: 14px;
+    }
+
+    .help-category {
+        margin-top: 25px;
+    }
+
+    .help-category h2 {
+        font-size: 18px;
+    }
+
+    .help-item {
+        min-height: 72px;
+        padding: 12px 14px;
+        gap: 12px;
+        border-radius: 17px;
+    }
+
+    .help-icon {
+        width: 43px;
+        height: 43px;
+        border-radius: 12px;
+        font-size: 19px;
+    }
+
+    .help-content h3 {
+        font-size: 15px;
+    }
+
+    .help-content p {
+        font-size: 11px;
+    }
+
+    .arrow {
+        font-size: 24px;
+    }
+
+    .help-detail {
+        width: 92%;
+        padding: 25px 20px;
+        border-radius: 22px;
+    }
+
+    .help-detail h1 {
+        font-size: 27px;
+    }
+
+    .help-detail h2 {
+        font-size: 18px;
+    }
+
+    .help-detail p {
+        font-size: 14px;
+    }
+}
+</style>
+
+<body>
+
+<div class="help-main" id="helpList">
+
+    <div class="help-header">
+        <span>🛠️</span>
+        <div>
+            <h1>ศูนย์ช่วยเหลือ</h1>
+            <p>พบปัญหาในการใช้งาน Candy Bot? เลือกปัญหาที่พบได้เลย</p>
+        </div>
+    </div>
+
+    <div class="help-category">
+        <h2>🔧 ปัญหาทั่วไป</h2>
+
+        <div class="help-list">
+
+            <div class="help-item" onclick="showHelp('application')">
+                <div class="help-icon">⚠️</div>
+                <div class="help-content">
+                    <h3>แอปพลิเคชันไม่ตอบสนอง</h3>
+                    <p>คำสั่งทำงานแล้วขึ้น Application did not respond</p>
+                </div>
+                <span class="arrow">›</span>
+            </div>
+
+            <div class="help-item" onclick="showHelp('offline')">
+                <div class="help-icon">🔴</div>
+                <div class="help-content">
+                    <h3>บอทออฟไลน์</h3>
+                    <p>Candy Bot ไม่ออนไลน์ในเซิร์ฟเวอร์</p>
+                </div>
+                <span class="arrow">›</span>
+            </div>
+
+            <div class="help-item" onclick="showHelp('command')">
+                <div class="help-icon">⚙️</div>
+                <div class="help-content">
+                    <h3>ใช้คำสั่งไม่ได้</h3>
+                    <p>คำสั่ง Slash Command ไม่ทำงาน</p>
+                </div>
+                <span class="arrow">›</span>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="help-category">
+        <h2>🎭 ระบบยศ</h2>
+
+        <div class="help-list">
+
+            <div class="help-item" onclick="showHelp('role')">
+                <div class="help-icon">🎭</div>
+                <div class="help-content">
+                    <h3>รับยศไม่ได้</h3>
+                    <p>กดรับยศแล้วบอทไม่สามารถมอบยศให้ได้</p>
+                </div>
+                <span class="arrow">›</span>
+            </div>
+
+            <div class="help-item" onclick="showHelp('verify')">
+                <div class="help-icon">✅</div>
+                <div class="help-content">
+                    <h3>ยืนยันตัวตนแล้วไม่ได้ยศ</h3>
+                    <p>ระบบ Verify ทำงานแต่ไม่ได้รับ Role</p>
+                </div>
+                <span class="arrow">›</span>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="help-category">
+        <h2>🎫 ระบบ Ticket</h2>
+
+        <div class="help-list">
+
+            <div class="help-item" onclick="showHelp('ticket')">
+                <div class="help-icon">🎫</div>
+                <div class="help-content">
+                    <h3>เปิด Ticket ไม่ได้</h3>
+                    <p>กดปุ่มเปิด Ticket แล้วไม่มีอะไรเกิดขึ้น</p>
+                </div>
+                <span class="arrow">›</span>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="help-detail" id="application">
+
+    <button class="help-back" onclick="backToHelp()">← กลับไปหน้าปัญหา</button>
+
+    <h1>⚠️ แอปพลิเคชันไม่ตอบสนอง</h1>
+
+    <p>
+        หากใช้คำสั่งของ Candy Bot แล้วขึ้นข้อความ
+        <strong>แอปพลิเคชันไม่ตอบสนอง</strong>
+        โดยทั่วไปหมายถึงบอทไม่ได้ตอบ Interaction ภายในเวลาที่ Discord กำหนด
+    </p>
+
+    <h2>🔧 วิธีแก้ไข</h2>
+
+    <ol>
+        <li>ตรวจสอบว่า Candy Bot ยังออนไลน์อยู่หรือไม่</li>
+        <li>ลองใช้คำสั่งใหม่อีกครั้ง</li>
+        <li>ตรวจสอบว่า Bot มีสิทธิ์ใช้งานในห้องนั้น</li>
+        <li>ตรวจสอบ Permission ของ Bot ใน Server</li>
+        <li>หากเกิดเฉพาะบางคำสั่ง อาจเป็นปัญหาที่ระบบของคำสั่งนั้น</li>
+    </ol>
+
+    <div class="help-info">
+        💡 หากลองใหม่แล้วยังไม่หาย ให้รอสักครู่แล้วลองใช้คำสั่งอีกครั้ง
+    </div>
+
+</div>
+
+
+<div class="help-detail" id="offline">
+
+    <button class="help-back" onclick="backToHelp()">← กลับไปหน้าปัญหา</button>
+
+    <h1>🔴 บอทออฟไลน์</h1>
+
+    <p>
+        หาก Candy Bot แสดงสถานะ Offline หรือไม่สามารถใช้งานคำสั่งต่าง ๆ ได้
+        ให้ตรวจสอบตามขั้นตอนด้านล่าง
+    </p>
+
+    <h2>🔧 วิธีแก้ไข</h2>
+
+    <ol>
+        <li>ตรวจสอบว่า Candy Bot ยังอยู่ในเซิร์ฟเวอร์หรือไม่</li>
+        <li>ตรวจสอบสถานะของบอท</li>
+        <li>ลองเชิญ Bot เข้า Server ใหม่หากบอทถูกนำออก</li>
+        <li>ตรวจสอบว่า Discord ไม่มีปัญหาขัดข้อง</li>
+    </ol>
+
+    <div class="help-warning">
+        ⚠️ หากบอทออฟไลน์พร้อมกันหลายเซิร์ฟเวอร์ อาจเป็นปัญหาจากระบบของ Candy Bot
+    </div>
+
+</div>
+
+
+<div class="help-detail" id="command">
+
+    <button class="help-back" onclick="backToHelp()">← กลับไปหน้าปัญหา</button>
+
+    <h1>⚙️ ใช้คำสั่งไม่ได้</h1>
+
+    <p>
+        หาก Slash Command ไม่ทำงานหรือไม่พบคำสั่งที่ต้องการ
+        ให้ลองตรวจสอบการตั้งค่าของ Discord Server
+    </p>
+
+    <h2>🔧 วิธีแก้ไข</h2>
+
+    <ol>
+        <li>ตรวจสอบว่า Candy Bot ออนไลน์</li>
+        <li>ตรวจสอบว่า Bot มีสิทธิ์ใช้งานคำสั่ง</li>
+        <li>ตรวจสอบว่า Discord แสดง Slash Command ของ Candy Bot หรือไม่</li>
+        <li>ลองออกจาก Discord แล้วเข้าใหม่</li>
+        <li>ลองพิมพ์ชื่อคำสั่งใหม่อีกครั้ง</li>
+    </ol>
+
+    <div class="help-info">
+        💡 หากเพิ่งเพิ่ม Bot เข้า Server อาจต้องรอสักครู่เพื่อให้คำสั่งแสดงผล
+    </div>
+
+</div>
+
+
+<div class="help-detail" id="role">
+
+    <button class="help-back" onclick="backToHelp()">← กลับไปหน้าปัญหา</button>
+
+    <h1>🎭 รับยศไม่ได้</h1>
+
+    <p>
+        หากกดปุ่มรับยศแล้ว Candy Bot ไม่สามารถมอบ Role ให้ได้
+        ปัญหาส่วนใหญ่มักเกิดจาก Permission หรือระดับของ Role
+    </p>
+
+    <h2>🔧 วิธีแก้ไข</h2>
+
+    <ol>
+        <li>เข้า Server Settings</li>
+        <li>ไปที่เมนู Roles</li>
+        <li>ตรวจสอบ Role ของ Candy Bot</li>
+        <li>เลื่อน Role ของ Candy Bot ให้อยู่สูงกว่า Role ที่ต้องการแจก</li>
+        <li>ตรวจสอบว่า Bot มี Permission <strong>Manage Roles</strong></li>
+    </ol>
+
+    <div class="help-warning">
+        ⚠️ Discord ไม่อนุญาตให้ Bot มอบ Role ที่อยู่สูงกว่าหรือเท่ากับ Role สูงสุดของ Bot
+    </div>
+
+</div>
+
+
+<div class="help-detail" id="verify">
+
+    <button class="help-back" onclick="backToHelp()">← กลับไปหน้าปัญหา</button>
+
+    <h1>✅ ยืนยันตัวตนแล้วไม่ได้ยศ</h1>
+
+    <p>
+        หากกดปุ่มยืนยันตัวตนสำเร็จ แต่ยังไม่ได้รับ Role
+        ให้ตรวจสอบการตั้งค่าระบบ Verify
+    </p>
+
+    <h2>🔧 วิธีแก้ไข</h2>
+
+    <ol>
+        <li>ตรวจสอบว่า Role สำหรับสมาชิกยังมีอยู่</li>
+        <li>ตรวจสอบว่า Role ไม่ได้ถูกลบหรือเปลี่ยนชื่อ</li>
+        <li>ตรวจสอบลำดับ Role ของ Candy Bot</li>
+        <li>ตรวจสอบว่า Candy Bot มี Permission <strong>Manage Roles</strong></li>
+        <li>ลองตั้งค่าระบบ Verify ใหม่</li>
+    </ol>
+
+    <div class="help-success">
+        ✅ หาก Role อยู่ต่ำกว่า Role ของ Bot และ Bot มี Manage Roles ระบบควรสามารถมอบ Role ได้
+    </div>
+
+</div>
+
+
+<div class="help-detail" id="ticket">
+
+    <button class="help-back" onclick="backToHelp()">← กลับไปหน้าปัญหา</button>
+
+    <h1>🎫 เปิด Ticket ไม่ได้</h1>
+
+    <p>
+        หากกดปุ่มเปิด Ticket แล้วไม่มีอะไรเกิดขึ้น
+        ให้ตรวจสอบ Permission และการตั้งค่าระบบ Ticket
+    </p>
+
+    <h2>🔧 วิธีแก้ไข</h2>
+
+    <ol>
+        <li>ตรวจสอบว่า Candy Bot ออนไลน์</li>
+        <li>ตรวจสอบว่า Bot มี Permission ใน Category Ticket</li>
+        <li>ตรวจสอบว่า Bot สามารถสร้าง Channel ได้</li>
+        <li>ตรวจสอบ Permission <strong>Manage Channels</strong></li>
+        <li>ตรวจสอบว่าระบบ Ticket ถูกตั้งค่าไว้แล้ว</li>
+    </ol>
+
+    <div class="help-info">
+        💡 หากกดปุ่มแล้วไม่มีข้อความตอบกลับ อาจเกี่ยวข้องกับ Permission หรือระบบ Ticket ของบอท
+    </div>
+
+</div>
+
+
+<script>
+function showHelp(id) {
+    document.getElementById("helpList").style.display = "none";
+
+    document.querySelectorAll(".help-detail").forEach(detail => {
+        detail.classList.remove("active");
+    });
+
+    const selectedHelp = document.getElementById(id);
+
+    if (selectedHelp) {
+        selectedHelp.classList.add("active");
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+}
+
+function backToHelp() {
+    document.querySelectorAll(".help-detail").forEach(detail => {
+        detail.classList.remove("active");
+    });
+
+    document.getElementById("helpList").style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+</script>
+
+<script src="index.js"></script>
+
+</body>
+</html>
